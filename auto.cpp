@@ -86,6 +86,7 @@ list<string> readDownloadFolders()
 
 int main()
 {
+    // Printing Each File
     readDownloadFiles();
     cout << "***Files***" << "\n";
     for (string entry : readDownloadFiles())
@@ -93,6 +94,7 @@ int main()
         cout << entry << "\n";
     }
 
+    // Printing each folder
     readDownloadFolders();
     cout << "\n";
     cout << "***Folders***" << "\n";
