@@ -128,4 +128,34 @@ list<string> findJPG()
     sleep(2);
     return jpgFiles;
 }
+
+/**
+ * Reads each PNG and in the downloas folder
+ * @return pngFiles
+ */
+list<string> findPNG()
+{
+    list<string> pngFiles;
+    int pngCount = 0;
+    for (string entry : readDownloadFiles())
+    {
+        string pngEnd = ".PNG";
+        string lowerPNGEnd = pngEnd;
+        // Worlds most confusing to lower function
+        transform(lowerPNGEnd.begin(), lowerPNGEnd.end(), lowerPNGEnd.begin(), ::tolower);
+        int jpgLower = entry.find(lowerPNGEnd);
+        int jpgUpper = entry.find(pngEnd);
+        // Overall logic for JPG and JPEG Files
+        if ((jpgLower != string::npos && entry.substr(jpgLower) == lowerPNGEnd) ||
+            (jpgUpper != string::npos && entry.substr(jpgUpper) == pngEnd))
+        {
+            pngFiles.push_back(entry);
+            pngCount++;
+        }
+    }
+    cout << "Reading..." << "\n";
+    cout << pngCount << " files found ending with .PNG in the folder" << "\n";
+    sleep(2);
+    return pngFiles;
+}
 #endif

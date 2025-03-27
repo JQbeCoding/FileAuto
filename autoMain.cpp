@@ -39,6 +39,7 @@ int main()
     {
     case 1:
         findJPG();
+        findPNG();
         break;
     case 5:
         cout << "Ending File...";
