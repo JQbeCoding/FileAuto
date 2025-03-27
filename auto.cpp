@@ -100,8 +100,10 @@ int main()
     cout << "***Files***" << "\n";
     // Displays photo files
     cout << "   PICTURES      " << "\n";
+    int count = 0;
     for (string entry : readDownloadFiles())
     {
+
         string imageEnd = ".JPG";
         string lowerImageEnd = imageEnd;
         // Worlds most confusing to lower function
@@ -116,8 +118,11 @@ int main()
             (picTwo != string::npos && entry.substr(picTwo) == ".JPEG"))
         {
             cout << entry << "\n";
+            usleep(10000);
+            count++;
         }
     }
+    cout << count << " files found ending with .JPG or .JPEG in the folder" << "\n";
 
     // Printing each folder
     readDownloadFolders();
