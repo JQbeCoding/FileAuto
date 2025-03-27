@@ -25,6 +25,7 @@ using namespace std;
  * I am choosing this folder specifically because it
  * is where I save most of my files. Files will be
  * added to a List of strings.
+ * @return Files in the download directory
  */
 list<string> readDownloadFiles()
 {
@@ -66,6 +67,7 @@ list<string> readDownloadFiles()
  * I am choosing this folder specifically because it
  * is where I save most of my files. Folders will be
  * added to a List of strings.
+ * @return Folders in the download directory
  */
 list<string> readDownloadFolders()
 {
@@ -99,6 +101,7 @@ list<string> readDownloadFolders()
 /**
  * Reads each JPG and JPEG File in the
  * Download Files
+ * @return JPG and JPEG files
  */
 list<string> findJPG()
 {
@@ -120,42 +123,66 @@ list<string> findJPG()
             (picTwo != string::npos && entry.substr(picTwo) == ".JPEG"))
         {
             jpgFiles.push_back(entry);
-            jpgCount++;
         }
     }
     cout << "Reading..." << "\n";
-    cout << jpgCount << " files found ending with .JPG or .JPEG in the folder" << "\n";
+    cout << jpgFiles.size() << " files found ending with .JPG or .JPEG in the folder" << "\n";
     sleep(2);
     return jpgFiles;
 }
 
 /**
- * Reads each PNG and in the downloas folder
+ * Reads each PNG and in the download\s folder
  * @return pngFiles
  */
 list<string> findPNG()
 {
     list<string> pngFiles;
-    int pngCount = 0;
     for (string entry : readDownloadFiles())
     {
         string pngEnd = ".PNG";
         string lowerPNGEnd = pngEnd;
         // Worlds most confusing to lower function
         transform(lowerPNGEnd.begin(), lowerPNGEnd.end(), lowerPNGEnd.begin(), ::tolower);
-        int jpgLower = entry.find(lowerPNGEnd);
-        int jpgUpper = entry.find(pngEnd);
-        // Overall logic for JPG and JPEG Files
-        if ((jpgLower != string::npos && entry.substr(jpgLower) == lowerPNGEnd) ||
-            (jpgUpper != string::npos && entry.substr(jpgUpper) == pngEnd))
+        int pngLower = entry.find(lowerPNGEnd);
+        int pngUpper = entry.find(pngEnd);
+        if ((pngLower != string::npos && entry.substr(pngLower) == lowerPNGEnd) ||
+            (pngUpper != string::npos && entry.substr(pngUpper) == pngEnd))
         {
             pngFiles.push_back(entry);
-            pngCount++;
         }
     }
     cout << "Reading..." << "\n";
-    cout << pngCount << " files found ending with .PNG in the folder" << "\n";
+    cout << pngFiles.size() << " files found ending with .PNG in the folder" << "\n";
     sleep(2);
     return pngFiles;
 }
+
+/**
+ * Reads each WEBP and in the downloads folder
+ * @return pngFiles
+ */
+list<string> findWebp()
+{
+    list<string> webpFiles;
+    for (string entry : readDownloadFiles())
+    {
+        string webpEnd = ".WEBP";
+        string lowerWebpEnd = webpEnd;
+        // Worlds most confusing to lower function
+        transform(lowerWebpEnd.begin(), lowerWebpEnd.end(), lowerWebpEnd.begin(), ::tolower);
+        int webpLower = entry.find(lowerWebpEnd);
+        int webpUpper = entry.find(webpEnd);
+        if ((webpLower != string::npos && entry.substr(webpLower) == lowerWebpEnd) ||
+            (webpUpper != string::npos && entry.substr(webpUpper) == webpEnd))
+        {
+            webpFiles.push_back(entry);
+        }
+    }
+    cout << "Reading..." << "\n";
+    cout << webpFiles.size() << " files found ending with .WEBP in the folder" << "\n";
+    sleep(2);
+    return webpFiles;
+}
+
 #endif

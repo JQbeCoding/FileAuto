@@ -38,9 +38,12 @@ int main()
     switch (choice)
     {
     case 1:
-        findJPG();
-        findPNG();
+    {
+        int total = findJPG().size() + findPNG().size() + findWebp().size();
+
+        cout << total << " image files found in the folder";
         break;
+    }
     case 5:
         cout << "Ending File...";
         exit(0);
