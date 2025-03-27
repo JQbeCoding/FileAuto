@@ -1,9 +1,10 @@
-/*--------------------------------------------|
- This program will automate storage for me on |
- my MacBook.                                  |
- Author: Ja'Quis Franklin                     |
- Date: 03/26/2025                             |
- ---------------------------------------------|
+/**
+ * --------------------------------------------|
+ This program will automate storage for me on  |
+ my MacBook.                                   |
+ @author Ja'Quis Franklin                      |
+ @date: 03/26/2025                             |
+ ----------------------------------------------|
  */
 
 #include <iostream>
@@ -17,7 +18,8 @@
 #include <algorithm>
 
 using namespace std;
-
+#ifndef MYFUNCTIONS_H
+#define MYFUNCTIONS_H
 /**
  * Reads Every File within the downloads directory.
  * I am choosing this folder specifically because it
@@ -94,44 +96,36 @@ list<string> readDownloadFolders()
     }
 }
 
-int main()
+/**
+ * Reads each JPG and JPEG File in the
+ * Download Files
+ */
+list<string> findJPG()
 {
-    // Printing Each File
-    cout << "***Files***" << "\n";
-    // Displays photo files
-    cout << "   PICTURES      " << "\n";
-    int count = 0;
+    list<string> jpgFiles;
+    int jpgCount = 0;
     for (string entry : readDownloadFiles())
     {
-
-        string imageEnd = ".JPG";
-        string lowerImageEnd = imageEnd;
+        string jpgEnd = ".JPG";
+        string lowerJPGEnd = jpgEnd;
         // Worlds most confusing to lower function
-        transform(lowerImageEnd.begin(), lowerImageEnd.end(), lowerImageEnd.begin(), ::tolower);
-        int jpgLower = entry.find(lowerImageEnd);
-        int jpgUpper = entry.find(imageEnd);
+        transform(lowerJPGEnd.begin(), lowerJPGEnd.end(), lowerJPGEnd.begin(), ::tolower);
+        int jpgLower = entry.find(lowerJPGEnd);
+        int jpgUpper = entry.find(jpgEnd);
         int picTwo = entry.find(".jpeg");
         // Overall logic for JPG and JPEG Files
-        if ((jpgLower != string::npos && entry.substr(jpgLower) == lowerImageEnd) ||
-            (jpgUpper != string::npos && entry.substr(jpgUpper) == imageEnd) ||
+        if ((jpgLower != string::npos && entry.substr(jpgLower) == lowerJPGEnd) ||
+            (jpgUpper != string::npos && entry.substr(jpgUpper) == jpgEnd) ||
             (picTwo != string::npos && entry.substr(picTwo) == ".jpeg") ||
             (picTwo != string::npos && entry.substr(picTwo) == ".JPEG"))
         {
-            cout << entry << "\n";
-            usleep(10000);
-            count++;
+            jpgFiles.push_back(entry);
+            jpgCount++;
         }
     }
-    cout << count << " files found ending with .JPG or .JPEG in the folder" << "\n";
-
-    // Printing each folder
-    readDownloadFolders();
-    cout << "\n";
-    cout << "***Folders***" << "\n";
-    for (string entry : readDownloadFolders())
-    {
-        cout << entry << "\n";
-    }
-
-    return 0;
+    cout << "Reading..." << "\n";
+    cout << jpgCount << " files found ending with .JPG or .JPEG in the folder" << "\n";
+    sleep(2);
+    return jpgFiles;
 }
+#endif
