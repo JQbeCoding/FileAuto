@@ -13,6 +13,8 @@
 #include <cstdlib>
 #include <unistd.h>
 #include <list>
+#include <cctype>
+#include <algorithm>
 
 using namespace std;
 
@@ -87,11 +89,21 @@ list<string> readDownloadFolders()
 int main()
 {
     // Printing Each File
-    readDownloadFiles();
     cout << "***Files***" << "\n";
     for (string entry : readDownloadFiles())
     {
-        cout << entry << "\n";
+        int pic = entry.find(".JPG");
+        int picTwo = entry.find(".jpeg");
+
+        if ((pic != string::npos && entry.substr(pic) == ".JPG"))
+        {
+            // print out the entry
+            cout << entry << "\n";
+        }
+        else if (picTwo != string::npos && entry.substr(picTwo) == ".jpeg")
+        {
+            cout << entry << "\n";
+        }
     }
 
     // Printing each folder
