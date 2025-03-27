@@ -75,15 +75,23 @@ list<string> readDownloadFolders()
         exit(1);
     }
     string path = string(homeDir) + "/downloads";
-    for (const auto &entry : filesystem::directory_iterator(path))
+    try
     {
-        string folder = entry.path().filename().string();
-        if (!is_regular_file(entry))
+        for (const auto &entry : filesystem::directory_iterator(path))
         {
-            folders.push_back(folder);
+            string folder = entry.path().filename().string();
+            if (!is_regular_file(entry))
+            {
+                folders.push_back(folder);
+            }
         }
+        return folders;
     }
-    return folders;
+    catch (const filesystem::filesystem_error &ex)
+    {
+        cout << "Error getting path for the files.";
+        exit(1);
+    }
 }
 
 int main()
@@ -94,7 +102,6 @@ int main()
     cout << "   PICTURES      " << "\n";
     for (string entry : readDownloadFiles())
     {
-
         string imageEnd = ".JPG";
         string lowerImageEnd = imageEnd;
         // Worlds most confusing to lower function
