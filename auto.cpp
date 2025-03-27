@@ -90,17 +90,23 @@ int main()
 {
     // Printing Each File
     cout << "***Files***" << "\n";
+    // Displays photo files
+    cout << "   PICTURES      " << "\n";
     for (string entry : readDownloadFiles())
     {
-        int pic = entry.find(".JPG");
-        int picTwo = entry.find(".jpeg");
 
-        if ((pic != string::npos && entry.substr(pic) == ".JPG"))
-        {
-            // print out the entry
-            cout << entry << "\n";
-        }
-        else if (picTwo != string::npos && entry.substr(picTwo) == ".jpeg")
+        string imageEnd = ".JPG";
+        string lowerImageEnd = imageEnd;
+        // Worlds most confusing to lower function
+        transform(lowerImageEnd.begin(), lowerImageEnd.end(), lowerImageEnd.begin(), ::tolower);
+        int jpgLower = entry.find(lowerImageEnd);
+        int jpgUpper = entry.find(imageEnd);
+        int picTwo = entry.find(".jpeg");
+        // Overall logic for JPG and JPEG Files
+        if ((jpgLower != string::npos && entry.substr(jpgLower) == lowerImageEnd) ||
+            (jpgUpper != string::npos && entry.substr(jpgUpper) == imageEnd) ||
+            (picTwo != string::npos && entry.substr(picTwo) == ".jpeg") ||
+            (picTwo != string::npos && entry.substr(picTwo) == ".JPEG"))
         {
             cout << entry << "\n";
         }
