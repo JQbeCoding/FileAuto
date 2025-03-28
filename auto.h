@@ -106,7 +106,6 @@ list<string> readDownloadFolders()
 list<string> findJPG()
 {
     list<string> jpgFiles;
-    int jpgCount = 0;
     for (string entry : readDownloadFiles())
     {
         string jpgEnd = ".JPG";
