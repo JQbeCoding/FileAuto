@@ -222,7 +222,7 @@ list<string> findDoc()
         }
     }
     cout << "Reading..." << "\n";
-    cout << docFiles.size() + " Doc files were found";
+    cout << docFiles.size() << " files ending with .doc and .docx were found in the folder" << "\n";
     sleep(2);
     return docFiles;
 }

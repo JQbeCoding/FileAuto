@@ -39,14 +39,13 @@ int main()
     {
     case 1:
     {
+        cout << "        PICTURES           " << "\n";
         int imageTotal = findJPG().size() + findPNG().size() + findWebp().size();
-
-        cout << "        PICTURES           ";
-        cout << imageTotal << " image files found in the folder";
-
+        cout << imageTotal << " image files found in the folder" << "\n";
+        cout << "\n";
+        cout << "        TEXT               " << "\n";
         int textTotal = findDoc().size();
-        cout << "        TEXT               ";
-        cout << textTotal << " text files found in the folder";
+        cout << textTotal << " text files found in the folder" << "\n";
 
         break;
     }
