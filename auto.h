@@ -122,6 +122,15 @@ list<string> readDownloadFolders()
 list<string> findJPG()
 {
     list<string> jpgFiles;
+    filesystem::path dir_path = "Photos";
+    if (filesystem::create_directory(dir_path))
+    {
+        cout << "Directory created successfully." << "\n";
+    }
+    else
+    {
+        cerr << "Error creating directory or directory already exists." << "\n";
+    }
     for (const auto &entry : readDownloadFiles())
     {
         string jpgEnd = ".JPG";
@@ -225,6 +234,60 @@ list<string> findDoc()
     cout << docFiles.size() << " files ending with .doc and .docx were found in the folder" << "\n";
     sleep(2);
     return docFiles;
+}
+
+/**
+ * Reads each PDF file found within the Downloads directory
+ * @return PDF files
+ */
+list<string> findPDF()
+{
+    list<string> pdfFiles;
+    for (const auto &entry : readDownloadFiles())
+    {
+        string pdfEnding = ".PDF";
+        string pdfEndingLower = toLowerCase(pdfEnding);
+        int pdfUpper = entry.find(pdfEnding);
+        int pdfLower = entry.find(pdfEndingLower);
+
+        if ((pdfUpper != string::npos && entry.substr(pdfUpper) == pdfEnding) ||
+            (pdfLower != string::npos && entry.substr(pdfLower) == pdfEndingLower))
+        {
+            pdfFiles.push_back(entry);
+        }
+    }
+
+    cout << "Reading..." << "\n";
+    cout << pdfFiles.size() << " files found ending with pdf found in the directory" << "\n";
+    sleep(2);
+    return pdfFiles;
+}
+
+/**
+ * Reads each TXT file found within the Downloads directory
+ * @return TXT files
+ */
+list<string> findTXT()
+{
+    list<string> txtFiles;
+    for (const auto &entry : readDownloadFiles())
+    {
+        string txtEnding = ".TXT";
+        string txtEndingLower = toLowerCase(txtEnding);
+        int txtUpper = entry.find(txtEnding);
+        int txtLower = entry.find(txtEndingLower);
+
+        if ((txtUpper != string::npos && entry.substr(txtUpper) == txtEnding) ||
+            (txtLower != string::npos && entry.substr(txtLower) == txtEndingLower))
+        {
+            txtFiles.push_back(entry);
+        }
+    }
+
+    cout << "Reading..." << "\n";
+    cout << txtFiles.size() << " files found ending with txt found in the directory" << "\n";
+    sleep(2);
+    return txtFiles;
 }
 
 #endif

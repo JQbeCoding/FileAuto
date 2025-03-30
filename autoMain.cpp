@@ -44,7 +44,7 @@ int main()
         cout << imageTotal << " image files found in the folder" << "\n";
         cout << "\n";
         cout << "        TEXT               " << "\n";
-        int textTotal = findDoc().size();
+        int textTotal = findDoc().size() + findPDF().size() + findTXT().size();
         cout << textTotal << " text files found in the folder" << "\n";
 
         break;
