@@ -1,6 +1,7 @@
 /**
  * --------------------------------------------|
- This program will automate storage for me on  |
+ This is a header for a program that will      |
+ automate storage for me on                    |
  my MacBook.                                   |
  @author Ja'Quis Franklin                      |
  @date: 03/26/2025                             |
@@ -18,8 +19,23 @@
 #include <algorithm>
 
 using namespace std;
+
 #ifndef MYFUNCTIONS_H
 #define MYFUNCTIONS_H
+
+/**
+ * C++ has a very long lowercase function
+ * so I will be making one myself
+ * @param word is the string to be lowercased
+ * @return the lowercase word
+ */
+string toLowerCase(const string &word)
+{
+    string lowerWord = word;
+    transform(lowerWord.begin(), lowerWord.end(), lowerWord.begin(), ::tolower);
+    return lowerWord;
+}
+
 /**
  * Reads Every File within the downloads directory.
  * I am choosing this folder specifically because it
@@ -109,9 +125,7 @@ list<string> findJPG()
     for (string entry : readDownloadFiles())
     {
         string jpgEnd = ".JPG";
-        string lowerJPGEnd = jpgEnd;
-        // Worlds most confusing to lower function
-        transform(lowerJPGEnd.begin(), lowerJPGEnd.end(), lowerJPGEnd.begin(), ::tolower);
+        string lowerJPGEnd = toLowerCase(jpgEnd);
         int jpgLower = entry.find(lowerJPGEnd);
         int jpgUpper = entry.find(jpgEnd);
         int picTwo = entry.find(".jpeg");
@@ -140,9 +154,7 @@ list<string> findPNG()
     for (string entry : readDownloadFiles())
     {
         string pngEnd = ".PNG";
-        string lowerPNGEnd = pngEnd;
-        // Worlds most confusing to lower function
-        transform(lowerPNGEnd.begin(), lowerPNGEnd.end(), lowerPNGEnd.begin(), ::tolower);
+        string lowerPNGEnd = toLowerCase(pngEnd);
         int pngLower = entry.find(lowerPNGEnd);
         int pngUpper = entry.find(pngEnd);
         if ((pngLower != string::npos && entry.substr(pngLower) == lowerPNGEnd) ||
@@ -167,9 +179,7 @@ list<string> findWebp()
     for (string entry : readDownloadFiles())
     {
         string webpEnd = ".WEBP";
-        string lowerWebpEnd = webpEnd;
-        // Worlds most confusing to lower function
-        transform(lowerWebpEnd.begin(), lowerWebpEnd.end(), lowerWebpEnd.begin(), ::tolower);
+        string lowerWebpEnd = toLowerCase(webpEnd);
         int webpLower = entry.find(lowerWebpEnd);
         int webpUpper = entry.find(webpEnd);
         if ((webpLower != string::npos && entry.substr(webpLower) == lowerWebpEnd) ||
