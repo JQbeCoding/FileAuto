@@ -16,9 +16,8 @@ void displayMenu()
 {
     cout << "[1] Organize Files \n";
     cout << "[2] Delete Files \n";
-    cout << "[3] Find File \n";
-    cout << "[4] Sort File \n";
-    cout << "[5] Exit \n";
+    cout << "[3] Sort Folder \n";
+    cout << "[4] Exit \n";
 }
 
 int main()
@@ -46,10 +45,9 @@ int main()
         cout << "        TEXT               " << "\n";
         int textTotal = findDoc().size() + findPDF().size() + findTXT().size();
         cout << textTotal << " text files found in the folder" << "\n";
-
         break;
     }
-    case 5:
+    case 4:
         cout << "Ending File...";
         exit(0);
         break;
