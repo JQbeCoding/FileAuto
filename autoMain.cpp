@@ -42,9 +42,10 @@ int main()
         int imageTotal = findJPG().size() + findPNG().size() + findWebp().size();
         cout << imageTotal << " image files found in the folder" << "\n";
         cout << "\n";
-        cout << "        TEXT               " << "\n";
+        cout << "          TEXT             " << "\n";
         int textTotal = findDoc().size() + findPDF().size() + findTXT().size();
         cout << textTotal << " text files found in the folder" << "\n";
+        cout << "         VIDEOS            " << "\n";
         break;
     }
     case 4:
