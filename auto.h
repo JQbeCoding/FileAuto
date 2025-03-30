@@ -1,7 +1,7 @@
 /**
  * --------------------------------------------|
  This is a header for a program that will      |
- automate storage for me on                    |
+ automate the Downloads directory for me on    |
  my MacBook.                                   |
  @author Ja'Quis Franklin                      |
  @date: 03/26/2025                             |
