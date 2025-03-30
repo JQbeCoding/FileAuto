@@ -41,7 +41,7 @@ string toLowerCase(const string &word)
  * I am choosing this folder specifically because it
  * is where I save most of my files. Files will be
  * added to a List of strings.
- * @return Files in the download directory
+ * @return Files in the Download directory
  */
 list<string> readDownloadFiles()
 {
@@ -122,7 +122,7 @@ list<string> readDownloadFolders()
 list<string> findJPG()
 {
     list<string> jpgFiles;
-    for (string entry : readDownloadFiles())
+    for (const auto &entry : readDownloadFiles())
     {
         string jpgEnd = ".JPG";
         string lowerJPGEnd = toLowerCase(jpgEnd);
@@ -145,13 +145,13 @@ list<string> findJPG()
 }
 
 /**
- * Reads each PNG and in the download\s folder
- * @return pngFiles
+ * Reads each PNG and in the Downloads folder
+ * @return Png Files
  */
 list<string> findPNG()
 {
     list<string> pngFiles;
-    for (string entry : readDownloadFiles())
+    for (const auto &entry : readDownloadFiles())
     {
         string pngEnd = ".PNG";
         string lowerPNGEnd = toLowerCase(pngEnd);
@@ -170,13 +170,13 @@ list<string> findPNG()
 }
 
 /**
- * Reads each WEBP and in the downloads folder
- * @return pngFiles
+ * Reads each WEBP and in the Downloads folder
+ * @return Webp Files
  */
 list<string> findWebp()
 {
     list<string> webpFiles;
-    for (string entry : readDownloadFiles())
+    for (const auto &entry : readDownloadFiles())
     {
         string webpEnd = ".WEBP";
         string lowerWebpEnd = toLowerCase(webpEnd);
@@ -192,6 +192,39 @@ list<string> findWebp()
     cout << webpFiles.size() << " files found ending with .WEBP in the folder" << "\n";
     sleep(2);
     return webpFiles;
+}
+
+/**
+ * Reads each doc and docx file Downloads directory
+ * @return Doc and Docx Files
+ */
+list<string> findDoc()
+{
+    list<string> docFiles;
+    for (const auto &entry : readDownloadFiles())
+    {
+        string docEnd = ".DOC";
+        string docxEnd = ".DOCX";
+        string docEndLower = toLowerCase(docEnd);
+        string docxEndLower = toLowerCase(docxEnd);
+        int docUpper = entry.find(docEnd);
+        int docLower = entry.find(docEndLower);
+        int docxUpper = entry.find(docxEnd);
+        int docxLower = entry.find(docxEndLower);
+
+        if ((docLower != string::npos && entry.substr(docLower) == docEndLower) ||
+            (docUpper != string::npos && entry.substr(docUpper) == docEnd) ||
+            (docxUpper != string::npos && entry.substr(docxUpper) == docxEnd) ||
+            (docxLower != string::npos && entry.substr(docxLower) == docxEndLower))
+
+        {
+            docFiles.push_back(entry);
+        }
+    }
+    cout << "Reading..." << "\n";
+    cout << docFiles.size() + " Doc files were found";
+    sleep(2);
+    return docFiles;
 }
 
 #endif
