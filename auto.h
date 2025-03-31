@@ -1,7 +1,7 @@
 /**
  * --------------------------------------------|
  This is a header for a program that will      |
- automate the Downloads directory for me on    |
+ read the Downloads directory for me on        |
  my MacBook.                                   |
  @author Ja'Quis Franklin                      |
  @date: 03/26/2025                             |
@@ -123,14 +123,6 @@ list<string> findJPG()
 {
     list<string> jpgFiles;
     filesystem::path dir_path = "Photos";
-    if (filesystem::create_directory(dir_path))
-    {
-        cout << "Directory created successfully." << "\n";
-    }
-    else
-    {
-        cerr << "Error creating directory or directory already exists." << "\n";
-    }
     for (const auto &entry : readDownloadFiles())
     {
         string jpgEnd = ".JPG";
@@ -148,8 +140,8 @@ list<string> findJPG()
         }
     }
     cout << "Reading..." << "\n";
-    cout << jpgFiles.size() << " files found ending with .JPG or .JPEG in the folder" << "\n";
     sleep(2);
+    cout << jpgFiles.size() << " files found ending with .JPG or .JPEG in the folder" << "\n";
     return jpgFiles;
 }
 
@@ -173,8 +165,8 @@ list<string> findPNG()
         }
     }
     cout << "Reading..." << "\n";
-    cout << pngFiles.size() << " files found ending with .PNG in the folder" << "\n";
     sleep(2);
+    cout << pngFiles.size() << " files found ending with .PNG in the folder" << "\n";
     return pngFiles;
 }
 
@@ -198,9 +190,59 @@ list<string> findWebp()
         }
     }
     cout << "Reading..." << "\n";
-    cout << webpFiles.size() << " files found ending with .WEBP in the folder" << "\n";
     sleep(2);
+    cout << webpFiles.size() << " files found ending with .WEBP in the folder" << "\n";
     return webpFiles;
+}
+
+/**
+ * Reads each HEIC file found in the downloads directory
+ * @return HEIC files
+ */
+list<string> findHEIC()
+{
+    list<string> heicFiles;
+    for (const auto &entry : readDownloadFiles())
+    {
+        string heicEnd = ".HEIC";
+        string lowerHeicEnd = toLowerCase(heicEnd);
+        int heicLower = entry.find(lowerHeicEnd);
+        int heicUpper = entry.find(heicEnd);
+        if ((heicLower != string::npos && entry.substr(heicLower) == lowerHeicEnd) ||
+            (heicUpper != string::npos && entry.substr(heicUpper) == heicEnd))
+        {
+            heicFiles.push_back(entry);
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(2);
+    cout << heicFiles.size() << " files found ending with .HEIC in the folder" << "\n";
+    return heicFiles;
+}
+
+/**
+ * Reads SVG files found within the downloads directory
+ * @return SVG files
+ */
+list<string> findSVG()
+{
+    list<string> svgFiles;
+    for (const auto &entry : readDownloadFiles())
+    {
+        string svgEnd = ".SVG";
+        string lowerSvgEnd = toLowerCase(svgEnd);
+        int svgLower = entry.find(lowerSvgEnd);
+        int svgUpper = entry.find(svgEnd);
+        if ((svgLower != string::npos && entry.substr(svgLower) == lowerSvgEnd) ||
+            (svgUpper != string::npos && entry.substr(svgUpper) == svgEnd))
+        {
+            svgFiles.push_back(entry);
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(2);
+    cout << svgFiles.size() << " files found ending with .SVG in the folder" << "\n";
+    return svgFiles;
 }
 
 /**
@@ -231,8 +273,8 @@ list<string> findDoc()
         }
     }
     cout << "Reading..." << "\n";
-    cout << docFiles.size() << " files ending with .doc and .docx were found in the folder" << "\n";
     sleep(2);
+    cout << docFiles.size() << " files ending with .doc and .docx were found in the folder" << "\n";
     return docFiles;
 }
 
@@ -258,8 +300,8 @@ list<string> findPDF()
     }
 
     cout << "Reading..." << "\n";
-    cout << pdfFiles.size() << " files found ending with pdf found in the directory" << "\n";
     sleep(2);
+    cout << pdfFiles.size() << " files found ending with pdf found in the directory" << "\n";
     return pdfFiles;
 }
 
@@ -285,9 +327,62 @@ list<string> findTXT()
     }
 
     cout << "Reading..." << "\n";
-    cout << txtFiles.size() << " files found ending with txt found in the directory" << "\n";
     sleep(2);
+    cout << txtFiles.size() << " files found ending with txt found in the directory" << "\n";
     return txtFiles;
+}
+
+/**
+ * Reads each MP4 File found within the Downloads directory
+ * @return MP4 Files
+ */
+list<string> findMP4()
+{
+    list<string> mp4Files;
+    for (const auto &entry : readDownloadFiles())
+    {
+        string mp4Ending = ".MP4";
+        string mp4EndingLower = toLowerCase(mp4Ending);
+        int mp4Upper = entry.find(mp4Ending);
+        int mp4Lower = entry.find(mp4EndingLower);
+
+        if ((mp4Upper != string::npos && entry.substr(mp4Upper) == mp4Ending) ||
+            (mp4Lower != string::npos && entry.substr(mp4Lower) == mp4EndingLower))
+        {
+            mp4Files.push_back(entry);
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(2);
+    cout << mp4Files.size() << " files found ending with MP4 in the directory." << "\n";
+    return mp4Files;
+}
+
+/**
+ * Reads each MOV file found within the downloads directory
+ * @return MOV Files
+ */
+
+list<string> findMOV()
+{
+    list<string> movFiles;
+    for (const auto &entry : readDownloadFiles())
+    {
+        string movEnding = ".MOV";
+        string movEndingLower = toLowerCase(movEnding);
+        int movUpper = entry.find(movEnding);
+        int movLower = entry.find(movEndingLower);
+
+        if ((movUpper != string::npos && entry.substr(movUpper) == movEnding) ||
+            (movLower != string::npos && entry.substr(movLower) == movEndingLower))
+        {
+            movFiles.push_back(entry);
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(2);
+    cout << movFiles.size() << " files found ending with MOV in the directory." << "\n";
+    return movFiles;
 }
 
 #endif

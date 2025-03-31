@@ -38,15 +38,31 @@ int main()
     {
     case 1:
     {
-        cout << "        PICTURES           " << "\n";
-        int imageTotal = findJPG().size() + findPNG().size() + findWebp().size();
-        cout << imageTotal << " image files found in the folder" << "\n";
-        cout << "\n";
-        cout << "          TEXT             " << "\n";
-        int textTotal = findDoc().size() + findPDF().size() + findTXT().size();
-        cout << textTotal << " text files found in the folder" << "\n";
-        cout << "         VIDEOS            " << "\n";
-        break;
+        int downloadFiles = readDownloadFiles().size();
+        if (downloadFiles < 1)
+        {
+            cout << "No files found." << "\n";
+            cout << "Exiting..." << "\n";
+            sleep(1);
+            break;
+        }
+        else
+        {
+            cout << downloadFiles << " files found in the directory" << "\n";
+            sleep(1);
+            cout << "        PICTURES           " << "\n";
+            int imageTotal = findJPG().size() + findPNG().size() + findWebp().size() + findHEIC().size() + findSVG().size();
+            cout << imageTotal << " image files found in the folder." << "\n";
+            cout << "\n";
+            cout << "          TEXT             " << "\n";
+            int textTotal = findDoc().size() + findPDF().size() + findTXT().size();
+            cout << textTotal << " text files found in the folder." << "\n";
+            cout << "\n";
+            cout << "         VIDEOS            " << "\n";
+            int videoTotal = findMP4().size() + findMOV().size();
+            cout << videoTotal << " Video files found in the folder." << "\n";
+            break;
+        }
     }
     case 4:
         cout << "Ending File...";
