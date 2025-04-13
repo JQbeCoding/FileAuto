@@ -4,6 +4,7 @@
     "string": "cpp",
     "iostream": "cpp",
     "bitset": "cpp",
-    "unordered_map": "cpp"
+    "unordered_map": "cpp",
+    "ios": "cpp"
   }
 }

@@ -385,4 +385,30 @@ list<string> findMOV()
     return movFiles;
 }
 
+/**
+ * Reads each MP3 File within the directory
+ * @return MP3 Files
+ */
+list<string> findMP3()
+{
+    list<string> mp3Files;
+    for (const auto &entry : readDownloadFiles())
+    {
+        string mp3Ending = ".MP3";
+        string mp3EndingLower = toLowerCase(mp3Ending);
+        int mp3Upper = entry.find(mp3Ending);
+        int mp3Lower = entry.find(mp3EndingLower);
+
+        if ((mp3Upper != string::npos && entry.substr(mp3Upper) == mp3Ending) ||
+            (mp3Lower != string::npos && entry.substr(mp3Lower) == mp3EndingLower))
+        {
+            mp3Files.push_back(entry);
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(2);
+    cout << mp3Files.size() << " files found ending with MP3 in the directory." << "\n";
+    return mp3Files;
+}
+
 #endif

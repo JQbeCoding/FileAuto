@@ -48,22 +48,60 @@ int main()
         }
         else
         {
-            cout << downloadFiles << " files found in the directory" << "\n";
-            sleep(1);
-            cout << "        PICTURES           " << "\n";
-            int imageTotal = findJPG().size() + findPNG().size() + findWebp().size() + findHEIC().size() + findSVG().size();
-            cout << imageTotal << " image files found in the folder." << "\n";
-            cout << "\n";
-            cout << "          TEXT             " << "\n";
-            int textTotal = findDoc().size() + findPDF().size() + findTXT().size();
-            cout << textTotal << " text files found in the folder." << "\n";
-            cout << "\n";
-            cout << "         VIDEOS            " << "\n";
-            int videoTotal = findMP4().size() + findMOV().size();
-            cout << videoTotal << " Video files found in the folder." << "\n";
+            string confirmationChoice;
+            while (true)
+            {
+                cout << "Files within the downloads directory will be organized." << "\n";
+                cout << "Are you sure you want to continue? [Y]es or [N]o" << "\n";
+
+                if (cin >> confirmationChoice)
+                {
+                    string lowerChoice = toLowerCase(confirmationChoice);
+                    if (lowerChoice == "y")
+                    {
+                        cout << downloadFiles << " files found in the directory" << "\n";
+                        sleep(1);
+                        cout << "        PICTURES           " << "\n";
+                        int imageTotal = findJPG().size() + findPNG().size() + findWebp().size() + findHEIC().size() + findSVG().size();
+                        cout << imageTotal << " image files found in the folder." << "\n";
+                        cout << "\n";
+                        cout << "          TEXT             " << "\n";
+                        int textTotal = findDoc().size() + findPDF().size() + findTXT().size();
+                        cout << textTotal << " text files found in the folder." << "\n";
+                        cout << "\n";
+                        cout << "         VIDEOS            " << "\n";
+                        int videoTotal = findMP4().size() + findMOV().size();
+                        cout << videoTotal << " Video files found in the folder." << "\n";
+                        cout << "\n";
+                        cout << "         AUDIO            " << "\n";
+                        int audioTotal = findMP3().size();
+                        cout << audioTotal << " Audio files found in the folder." << "\n";
+                        cout << "\n";
+
+                        cout << "Files have been added to Respective Folders";
+                        break;
+                    }
+                    else if (lowerChoice == "n")
+                    {
+                        cout << "Operation cancelled by the user.\n";
+                        break;
+                    }
+                    else
+                    {
+                        cout << "Invalid input. Please enter 'y' or 'n'.\n";
+                    }
+                }
+                else
+                {
+                    cerr << "Error reading input. Please try again.\n";
+                    cin.clear();
+                    cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+                }
+            }
             break;
         }
     }
+
     case 4:
         cout << "Ending File...";
         exit(0);
