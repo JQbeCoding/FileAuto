@@ -1,6 +1,6 @@
 automain:	file format mach-o arm64
 
-Disassembly of section __TEXT,__text:
+;Disassembly of section __TEXT,__text:
 
 0000000100001d78 <__Z11toLowerCaseRKNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEE>:
 100001d78: d101c3ff    	sub	sp, sp, #0x70
