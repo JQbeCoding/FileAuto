@@ -83,7 +83,7 @@ int main()
                     }
                     else if (lowerChoice == "n")
                     {
-                        cout << "Operation cancelled by the user.\n";
+                        cout << "Program is cancelled.\n";
                         break;
                     }
                     else
