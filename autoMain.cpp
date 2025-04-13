@@ -74,7 +74,7 @@ int main()
                         cout << videoTotal << " Video files found in the folder." << "\n";
                         cout << "\n";
                         cout << "         AUDIO            " << "\n";
-                        int audioTotal = findMP3().size();
+                        int audioTotal = findMP3().size() + findWAV().size();
                         cout << audioTotal << " Audio files found in the folder." << "\n";
                         cout << "\n";
 

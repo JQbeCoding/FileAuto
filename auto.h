@@ -411,4 +411,30 @@ list<string> findMP3()
     return mp3Files;
 }
 
+/**
+ * Reads each WAV file within the directory
+ * @return WAV Files
+ */
+list<string> findWAV()
+{
+    list<string> wavFiles;
+    for (const auto &entry : readDownloadFiles())
+    {
+        string wavEnding = ".WAV";
+        string wavEndingLower = toLowerCase(wavEnding);
+        int wavUpper = entry.find(wavEnding);
+        int wavLower = entry.find(wavEndingLower);
+
+        if ((wavUpper != string::npos && entry.substr(wavUpper) == wavEnding) ||
+            (wavLower != string::npos && entry.substr(wavLower) == wavEndingLower))
+        {
+            wavFiles.push_back(entry);
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(2);
+    cout << wavFiles.size() << " files found ending with WAV in the directory." << "\n";
+    return wavFiles;
+}
+
 #endif
