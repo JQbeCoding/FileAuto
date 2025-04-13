@@ -24,7 +24,7 @@ using namespace std;
 #define MYFUNCTIONS_H
 
 /**
- * C++ has a very long lowercase function
+ * C++ has a lowercase function that I don't like
  * so I will be making one myself
  * @param word is the string to be lowercased
  * @return the lowercase word
