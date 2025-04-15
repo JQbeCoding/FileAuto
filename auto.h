@@ -23,6 +23,8 @@ using namespace std;
 #ifndef MYFUNCTIONS_H
 #define MYFUNCTIONS_H
 
+inline const filesystem::path PICTURES_DIR = "/Users/jaquismay/downloads/PICTURES";
+
 /**
  * C++ has a lowercase function that I don't like
  * so I will be making one myself
@@ -122,7 +124,7 @@ list<string> readDownloadFolders()
 list<string> findJPG()
 {
     list<string> jpgFiles;
-    filesystem::path dir_path = "Photos";
+
     for (const auto &entry : readDownloadFiles())
     {
         string jpgEnd = ".JPG";
@@ -137,6 +139,17 @@ list<string> findJPG()
             (picTwo != string::npos && entry.substr(picTwo) == ".JPEG"))
         {
             jpgFiles.push_back(entry);
+            filesystem::path source = entry;
+            filesystem::path destination = PICTURES_DIR;
+            try
+            {
+                filesystem::copy(source, destination, filesystem::copy_options::overwrite_existing);
+                cout << "Copied: " << source.filename() << " to " << destination << "\n";
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error copying " << source.filename() << ": " << e.what() << "\n";
+            }
         }
     }
     cout << "Reading..." << "\n";
@@ -243,6 +256,31 @@ list<string> findSVG()
     sleep(2);
     cout << svgFiles.size() << " files found ending with .SVG in the folder" << "\n";
     return svgFiles;
+}
+
+/**
+ * Reads GIF files found within the downloads directory
+ * @return GIF files
+ */
+list<string> findGIF()
+{
+    list<string> gifFiles;
+    for (const auto &entry : readDownloadFiles())
+    {
+        string gifEnd = ".GIF";
+        string lowerGifEnd = toLowerCase(gifEnd);
+        int gifLower = entry.find(lowerGifEnd);
+        int gifUpper = entry.find(gifEnd);
+        if ((gifLower != string::npos && entry.substr(gifLower) == lowerGifEnd) ||
+            (gifUpper != string::npos && entry.substr(gifUpper) == gifEnd))
+        {
+            gifFiles.push_back(entry);
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(2);
+    cout << gifFiles.size() << " files found ending with .GIF in the folder" << "\n";
+    return gifFiles;
 }
 
 /**
