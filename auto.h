@@ -63,7 +63,7 @@ list<string> readDownloadFiles()
         // Reading through each file in the directory and printing the path
         for (const auto &entry : filesystem::directory_iterator(path))
         {
-            string file = entry.path().filename().string();
+            string file = entry.path().string();
             if (is_regular_file(entry))
             {
 
@@ -140,7 +140,8 @@ list<string> findJPG()
         {
             jpgFiles.push_back(entry);
             filesystem::path source = entry;
-            filesystem::path destination = PICTURES_DIR;
+            cout << source;
+            filesystem::path destination = PICTURES_DIR / source.filename();
             try
             {
                 filesystem::copy(source, destination, filesystem::copy_options::overwrite_existing);
