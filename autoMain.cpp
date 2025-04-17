@@ -120,7 +120,7 @@ int main()
                         try
                         {
                             filesystem::create_directory("VIDEOS");
-                            if (filesystem::create_directory(picturesPath))
+                            if (filesystem::create_directory(vidPath))
                             {
                                 cout << vidPath.string() << " sucessfully created. \n";
                             }
@@ -141,7 +141,7 @@ int main()
                         try
                         {
                             filesystem::create_directory("AUDIO");
-                            if (filesystem::create_directory(picturesPath))
+                            if (filesystem::create_directory(audPath))
                             {
                                 cout << audPath.string() << " sucessfully created. \n";
                             }
