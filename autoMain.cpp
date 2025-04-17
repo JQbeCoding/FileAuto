@@ -90,7 +90,7 @@ int main()
                             cerr << "Filesystem error occurred: " << e.what() << "\n";
                         }
 
-                        int imageTotal = findJPG().size() + findPNG().size() + findWebp().size() + findHEIC().size() + findSVG().size() + findGIF().size();
+                        int imageTotal = findJPG().size() + findPNG().size() + findWebp().size() + findHEIC().size() + findSVG().size() + findGIF().size() + findICO().size();
                         cout << imageTotal << " image files found in the folder." << "\n";
                         cout << "\n";
                         cout << "          TEXT             " << "\n";
@@ -110,7 +110,7 @@ int main()
                         {
                             cerr << "Filesystem error occurred: " << e.what() << "\n";
                         }
-                        int textTotal = findDoc().size() + findPDF().size() + findTXT().size();
+                        int textTotal = findDoc().size() + findPDF().size() + findTXT().size() + findPPTX().size();
                         cout << textTotal << " text files found in the folder." << "\n";
                         cout << "\n";
                         cout << "         VIDEOS            " << "\n";
@@ -153,13 +153,17 @@ int main()
                         int audioTotal = findMP3().size() + findWAV().size();
                         cout << audioTotal << " Audio files found in the folder." << "\n";
                         cout << "\n";
-                        cout << "Files have been added to Respective Folders";
+                        cout << "Files have been added to Respective Folders \n";
                         break;
                     }
                     else if (lowerChoice == "n")
                     {
                         cout << "Program is cancelled.\n";
                         break;
+                    }
+                    else if (lowerChoice == "")
+                    {
+                        lowerChoice = "y";
                     }
                     else
                     {

@@ -169,8 +169,9 @@ vector<filesystem::path> findJPG()
     }
     cout << "Reading..." << "\n";
     sleep(1);
-    cout << copyCount << " JPG Files added sucessfully to the directory. \n";
+
     cout << jpgFiles.size() << " files found ending with .JPG or .JPEG in the folder" << "\n";
+    cout << copyCount << " JPG Files added sucessfully to the directory. \n";
     return jpgFiles;
 }
 
@@ -206,8 +207,9 @@ vector<filesystem::path> findPNG()
     }
     cout << "Reading..." << "\n";
     sleep(2);
-    cout << copyCount << " files added to the PICTURES directory!! \n";
+
     cout << pngFiles.size() << " files found ending with .PNG in the folder" << "\n";
+    cout << copyCount << " files added to the PICTURES directory!! \n";
     return pngFiles;
 }
 
@@ -244,8 +246,9 @@ vector<filesystem::path> findWebp()
     }
     cout << "Reading..." << "\n";
     sleep(2);
-    cout << copyCount << " files added to the PICTURES directory!! \n";
+
     cout << webpFiles.size() << " files found ending with .WEBP in the folder" << "\n";
+    cout << copyCount << " files added to the PICTURES directory!! \n";
     return webpFiles;
 }
 
@@ -281,8 +284,9 @@ vector<filesystem::path> findHEIC()
     }
     cout << "Reading..." << "\n";
     sleep(2);
-    cout << copyCount << " files added to the PICTURES directory!! \n";
+
     cout << heicFiles.size() << " files found ending with .HEIC in the folder" << "\n";
+    cout << copyCount << " files added to the PICTURES directory!! \n";
     return heicFiles;
 }
 
@@ -318,8 +322,9 @@ vector<filesystem::path> findSVG()
     }
     cout << "Reading..." << "\n";
     sleep(2);
+
+    cout << copyCount << " files found ending with .SVG in the folder" << "\n";
     cout << copyCount << " files added to the PICTURES directory!! \n";
-    cout << svgFiles.size() << " files found ending with .SVG in the folder" << "\n";
     return svgFiles;
 }
 
@@ -355,8 +360,48 @@ vector<filesystem::path> findGIF()
     }
     cout << "Reading..." << "\n";
     sleep(2);
+
+    cout << copyCount << " files found ending with .SVG in the folder" << "\n";
     cout << copyCount << " files added to the PICTURES directory!! \n";
     return gifFiles;
+}
+
+/**
+ * Reads each ICO file within the Downloads directory
+ * @return Ico Files
+ */
+vector<filesystem::path> findICO()
+{
+    vector<filesystem::path> icoFiles;
+    int copyCount = 0;
+    for (const auto &entry : readDownloadFiles())
+    {
+        string icoEnd = ".ICO";
+        string lowerICOEnd = toLowerCase(icoEnd);
+        int icoLower = entry.find(lowerICOEnd);
+        int icoUpper = entry.find(icoEnd);
+        if ((icoLower != string::npos && entry.substr(icoLower) == lowerICOEnd) ||
+            (icoUpper != string::npos && entry.substr(icoUpper) == icoEnd))
+        {
+            filesystem::path source = entry;
+            filesystem::path destination = PICTURES_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error copying " << source.filename() << ": " << e.what() << "\n";
+            }
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(2);
+
+    cout << icoFiles.size() << " files found ending with .SVG in the folder" << "\n";
+    cout << copyCount << " files added to the PICTURES directory!! \n";
+    return icoFiles;
 }
 
 /**
@@ -440,6 +485,44 @@ vector<filesystem::path> findPDF()
     cout << copyCount << " files added to the TEXT directory!! \n";
     cout << pdfFiles.size() << " files found ending with pdf found in the directory" << "\n";
     return pdfFiles;
+}
+
+/**
+ * Reads each PPTX file found within the Downloads directory
+ * @return PPTX files
+ */
+vector<filesystem::path> findPPTX()
+{
+    vector<filesystem::path> pptxFiles;
+    int copyCount = 0;
+    for (const auto &entry : readDownloadFiles())
+    {
+        string pptxEnding = ".PPTX";
+        string pptxEndingLower = toLowerCase(pptxEnding);
+        int pptxUpper = entry.find(pptxEnding);
+        int pptxLower = entry.find(pptxEndingLower);
+
+        if ((pptxUpper != string::npos && entry.substr(pptxUpper) == pptxEnding) ||
+            (pptxLower != string::npos && entry.substr(pptxLower) == pptxEndingLower))
+        {
+            filesystem::path source = entry;
+            filesystem::path destination = TEXT_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error copying " << source.filename() << ": " << e.what() << "\n";
+            }
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(2);
+    cout << copyCount << " files added to the TEXT directory!! \n";
+    cout << pptxFiles.size() << " files found ending with pptx found in the directory" << "\n";
+    return pptxFiles;
 }
 
 /**
