@@ -170,7 +170,7 @@ vector<filesystem::path> findJPG()
     cout << "Reading..." << "\n";
     sleep(1);
 
-    cout << jpgFiles.size() << " files found ending with .JPG or .JPEG in the folder" << "\n";
+    cout << copyCount << " files found ending with .JPG or .JPEG in the folder" << "\n";
     cout << copyCount << " JPG Files added sucessfully to the directory. \n";
     return jpgFiles;
 }
@@ -208,7 +208,7 @@ vector<filesystem::path> findPNG()
     cout << "Reading..." << "\n";
     sleep(2);
 
-    cout << pngFiles.size() << " files found ending with .PNG in the folder" << "\n";
+    cout << copyCount << " files found ending with .PNG in the folder" << "\n";
     cout << copyCount << " files added to the PICTURES directory!! \n";
     return pngFiles;
 }
@@ -247,7 +247,7 @@ vector<filesystem::path> findWebp()
     cout << "Reading..." << "\n";
     sleep(2);
 
-    cout << webpFiles.size() << " files found ending with .WEBP in the folder" << "\n";
+    cout << copyCount << " files found ending with .WEBP in the folder" << "\n";
     cout << copyCount << " files added to the PICTURES directory!! \n";
     return webpFiles;
 }
@@ -285,7 +285,7 @@ vector<filesystem::path> findHEIC()
     cout << "Reading..." << "\n";
     sleep(2);
 
-    cout << heicFiles.size() << " files found ending with .HEIC in the folder" << "\n";
+    cout << copyCount << " files found ending with .HEIC in the folder" << "\n";
     cout << copyCount << " files added to the PICTURES directory!! \n";
     return heicFiles;
 }
@@ -361,7 +361,7 @@ vector<filesystem::path> findGIF()
     cout << "Reading..." << "\n";
     sleep(2);
 
-    cout << copyCount << " files found ending with .SVG in the folder" << "\n";
+    cout << copyCount << " files found ending with .GIF in the folder" << "\n";
     cout << copyCount << " files added to the PICTURES directory!! \n";
     return gifFiles;
 }
@@ -399,7 +399,7 @@ vector<filesystem::path> findICO()
     cout << "Reading..." << "\n";
     sleep(2);
 
-    cout << icoFiles.size() << " files found ending with .SVG in the folder" << "\n";
+    cout << copyCount << " files found ending with .ICO in the folder" << "\n";
     cout << copyCount << " files added to the PICTURES directory!! \n";
     return icoFiles;
 }
@@ -444,8 +444,9 @@ vector<filesystem::path> findDoc()
     }
     cout << "Reading..." << "\n";
     sleep(2);
+    cout << copyCount << " files ending with .doc and .docx were found in the folder" << "\n";
     cout << copyCount << " files added to the TEXT directory!! \n";
-    cout << docFiles.size() << " files ending with .doc and .docx were found in the folder" << "\n";
+
     return docFiles;
 }
 
@@ -482,8 +483,9 @@ vector<filesystem::path> findPDF()
     }
     cout << "Reading..." << "\n";
     sleep(2);
+
+    cout << copyCount << " files found ending with pdf found in the directory" << "\n";
     cout << copyCount << " files added to the TEXT directory!! \n";
-    cout << pdfFiles.size() << " files found ending with pdf found in the directory" << "\n";
     return pdfFiles;
 }
 
@@ -520,8 +522,9 @@ vector<filesystem::path> findPPTX()
     }
     cout << "Reading..." << "\n";
     sleep(2);
+    cout << copyCount << " files found ending with pptx found in the directory" << "\n";
     cout << copyCount << " files added to the TEXT directory!! \n";
-    cout << pptxFiles.size() << " files found ending with pptx found in the directory" << "\n";
+
     return pptxFiles;
 }
 
@@ -558,8 +561,9 @@ vector<filesystem::path> findTXT()
     }
     cout << "Reading..." << "\n";
     sleep(2);
+    cout << copyCount << " files found ending with txt found in the directory" << "\n";
     cout << copyCount << " files added to the TEXT directory!! \n";
-    cout << txtFiles.size() << " files found ending with txt found in the directory" << "\n";
+
     return txtFiles;
 }
 
@@ -596,8 +600,9 @@ vector<filesystem::path> findMP4()
     }
     cout << "Reading..." << "\n";
     sleep(2);
+    cout << copyCount << " files found ending with MP4 in the directory." << "\n";
     cout << copyCount << " files added to the VIDEO directory!! \n";
-    cout << mp4Files.size() << " files found ending with MP4 in the directory." << "\n";
+
     return mp4Files;
 }
 
@@ -633,8 +638,9 @@ vector<filesystem::path> findMOV()
     }
     cout << "Reading..." << "\n";
     sleep(2);
+    cout << copyCount << " files found ending with MOV in the directory." << "\n";
     cout << copyCount << " files added to the VIDEO directory!! \n";
-    cout << movFiles.size() << " files found ending with MOV in the directory." << "\n";
+
     return movFiles;
 }
 
@@ -671,6 +677,7 @@ vector<filesystem::path> findMP3()
     }
     cout << "Reading..." << "\n";
     sleep(2);
+    cout << copyCount << " files ending with MP3 in the directory\n";
     cout << copyCount << " files added to the AUDIO directory!! \n";
     return mp3Files;
 }
@@ -708,6 +715,7 @@ vector<filesystem::path> findWAV()
     }
     cout << "Reading..." << "\n";
     sleep(2);
+    cout << copyCount << " files ending with WAV in the directory\n";
     cout << copyCount << " files added to the AUDIO directory!! \n";
     return wavFiles;
 }
