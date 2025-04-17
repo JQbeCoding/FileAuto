@@ -76,7 +76,6 @@ int main()
                         filesystem::path picturesPath = downloadsPath / "PICTURES";
                         try
                         {
-                            filesystem::create_directory("PICTURES");
                             if (filesystem::create_directory(picturesPath))
                             {
                                 cout << picturesPath.string() << " sucessfully created. \n";
@@ -91,14 +90,13 @@ int main()
                             cerr << "Filesystem error occurred: " << e.what() << "\n";
                         }
 
-                        int imageTotal = findJPG().size() + findPNG().size() + findWebp().size() + findHEIC().size() + findSVG().size();
+                        int imageTotal = findJPG().size() + findPNG().size() + findWebp().size() + findHEIC().size() + findSVG().size() + findGIF().size();
                         cout << imageTotal << " image files found in the folder." << "\n";
                         cout << "\n";
                         cout << "          TEXT             " << "\n";
                         filesystem::path textPath = downloadsPath / "TEXT";
                         try
                         {
-                            filesystem::create_directory("TEXT");
                             if (filesystem::create_directory(textPath))
                             {
                                 cout << textPath.string() << " sucessfully created. \n";
@@ -119,7 +117,6 @@ int main()
                         filesystem::path vidPath = downloadsPath / "VIDEOS";
                         try
                         {
-                            filesystem::create_directory("VIDEOS");
                             if (filesystem::create_directory(vidPath))
                             {
                                 cout << vidPath.string() << " sucessfully created. \n";
@@ -140,7 +137,6 @@ int main()
                         filesystem::path audPath = downloadsPath / "AUDIO";
                         try
                         {
-                            filesystem::create_directory("AUDIO");
                             if (filesystem::create_directory(audPath))
                             {
                                 cout << audPath.string() << " sucessfully created. \n";

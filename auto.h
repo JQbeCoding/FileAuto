@@ -23,11 +23,21 @@ using namespace std;
 #ifndef MYFUNCTIONS_H
 #define MYFUNCTIONS_H
 
-const char *homeDir = getenv("HOME");
-inline const filesystem::path PICTURES_DIR = string(homeDir) + "/Downloads/PICTURES";
-inline const filesystem::path TEXT_DIR = string(homeDir) + "/Downloads/TEXT";
-inline const filesystem::path MOV_DIR = string(homeDir) + "/Downloads/VIDEOS";
-inline const filesystem::path AUD_DIR = string(homeDir) + "/Downloads/AUDIO";
+inline filesystem::path getHomeDir()
+{
+    const char *homeDir = getenv("HOME");
+    if (!homeDir)
+    {
+        cerr << "Error: HOME environment variable not set.\n";
+        exit(1);
+    }
+    return filesystem::path(homeDir);
+}
+
+inline const filesystem::path PICTURES_DIR = getHomeDir() / "Downloads/PICTURES";
+inline const filesystem::path TEXT_DIR = getHomeDir() / "Downloads/TEXT";
+inline const filesystem::path MOV_DIR = getHomeDir() / "Downloads/VIDEOS";
+inline const filesystem::path AUD_DIR = getHomeDir() / "Downloads/AUDIO";
 
 /**
  * C++ has a lowercase function that I don't like
@@ -526,15 +536,17 @@ vector<filesystem::path> findMOV()
 
         filesystem::path source = entry;
         filesystem::path destination = MOV_DIR / source.filename();
-        try
-        {
-            filesystem::rename(source, destination);
-            copyCount++;
-        }
-        catch (const filesystem::filesystem_error &e)
-        {
-            cerr << "Error copying " << source.filename() << ": " << e.what() << "\n";
-        }
+        if ((movUpper != string::npos && entry.substr(movUpper) == movEnding) ||
+            (movLower != string::npos && entry.substr(movLower) == movEndingLower))
+            try
+            {
+                filesystem::rename(source, destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error copying " << source.filename() << ": " << e.what() << "\n";
+            }
     }
     cout << "Reading..." << "\n";
     sleep(2);
