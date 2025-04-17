@@ -23,7 +23,11 @@ using namespace std;
 #ifndef MYFUNCTIONS_H
 #define MYFUNCTIONS_H
 
-inline const filesystem::path PICTURES_DIR = "/Users/jaquismay/downloads/PICTURES";
+const char *homeDir = getenv("HOME");
+inline const filesystem::path PICTURES_DIR = string(homeDir) + "Downloads/PICTURES";
+inline const filesystem::path TEXT_DIR = string(homeDir) + "Downloads/TEXT";
+inline const filesystem::path MOV_DIR = string(homeDir) + "Downloads/VIDEOS";
+inline const filesystem::path AUD_DIR = string(homeDir) + "Downloads/AUDIO";
 
 /**
  * C++ has a lowercase function that I don't like
@@ -121,9 +125,10 @@ list<string> readDownloadFolders()
  * Download Files
  * @return JPG and JPEG files
  */
-list<string> findJPG()
+vector<filesystem::path> findJPG()
 {
-    list<string> jpgFiles;
+    vector<filesystem::path> jpgFiles;
+    int copyCount = 0;
 
     for (const auto &entry : readDownloadFiles())
     {
@@ -140,12 +145,11 @@ list<string> findJPG()
         {
             jpgFiles.push_back(entry);
             filesystem::path source = entry;
-            cout << source;
             filesystem::path destination = PICTURES_DIR / source.filename();
             try
             {
-                filesystem::copy(source, destination, filesystem::copy_options::overwrite_existing);
-                cout << "Copied: " << source.filename() << " to " << destination << "\n";
+                filesystem::rename(source, destination);
+                copyCount++;
             }
             catch (const filesystem::filesystem_error &e)
             {
@@ -154,7 +158,8 @@ list<string> findJPG()
         }
     }
     cout << "Reading..." << "\n";
-    sleep(2);
+    sleep(1);
+    cout << copyCount << " JPG Files added sucessfully to the directory. \n";
     cout << jpgFiles.size() << " files found ending with .JPG or .JPEG in the folder" << "\n";
     return jpgFiles;
 }
@@ -163,9 +168,10 @@ list<string> findJPG()
  * Reads each PNG and in the Downloads folder
  * @return Png Files
  */
-list<string> findPNG()
+vector<filesystem::path> findPNG()
 {
-    list<string> pngFiles;
+    vector<filesystem::path> pngFiles;
+    int copyCount = 0;
     for (const auto &entry : readDownloadFiles())
     {
         string pngEnd = ".PNG";
@@ -175,11 +181,22 @@ list<string> findPNG()
         if ((pngLower != string::npos && entry.substr(pngLower) == lowerPNGEnd) ||
             (pngUpper != string::npos && entry.substr(pngUpper) == pngEnd))
         {
-            pngFiles.push_back(entry);
+            filesystem::path source = entry;
+            filesystem::path destination = PICTURES_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error copying " << source.filename() << ": " << e.what() << "\n";
+            }
         }
     }
     cout << "Reading..." << "\n";
     sleep(2);
+    cout << copyCount << " files added to the PICTURES directory!! \n";
     cout << pngFiles.size() << " files found ending with .PNG in the folder" << "\n";
     return pngFiles;
 }
@@ -188,9 +205,10 @@ list<string> findPNG()
  * Reads each WEBP and in the Downloads folder
  * @return Webp Files
  */
-list<string> findWebp()
+vector<filesystem::path> findWebp()
 {
-    list<string> webpFiles;
+    vector<filesystem::path> webpFiles;
+    int copyCount = 0;
     for (const auto &entry : readDownloadFiles())
     {
         string webpEnd = ".WEBP";
@@ -201,10 +219,22 @@ list<string> findWebp()
             (webpUpper != string::npos && entry.substr(webpUpper) == webpEnd))
         {
             webpFiles.push_back(entry);
+            filesystem::path source = entry;
+            filesystem::path destination = PICTURES_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error copying " << source.filename() << ": " << e.what() << "\n";
+            }
         }
     }
     cout << "Reading..." << "\n";
     sleep(2);
+    cout << copyCount << " files added to the PICTURES directory!! \n";
     cout << webpFiles.size() << " files found ending with .WEBP in the folder" << "\n";
     return webpFiles;
 }
@@ -213,9 +243,10 @@ list<string> findWebp()
  * Reads each HEIC file found in the downloads directory
  * @return HEIC files
  */
-list<string> findHEIC()
+vector<filesystem::path> findHEIC()
 {
-    list<string> heicFiles;
+    vector<filesystem::path> heicFiles;
+    int copyCount = 0;
     for (const auto &entry : readDownloadFiles())
     {
         string heicEnd = ".HEIC";
@@ -225,11 +256,22 @@ list<string> findHEIC()
         if ((heicLower != string::npos && entry.substr(heicLower) == lowerHeicEnd) ||
             (heicUpper != string::npos && entry.substr(heicUpper) == heicEnd))
         {
-            heicFiles.push_back(entry);
+            filesystem::path source = entry;
+            filesystem::path destination = PICTURES_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error copying " << source.filename() << ": " << e.what() << "\n";
+            }
         }
     }
     cout << "Reading..." << "\n";
     sleep(2);
+    cout << copyCount << " files added to the PICTURES directory!! \n";
     cout << heicFiles.size() << " files found ending with .HEIC in the folder" << "\n";
     return heicFiles;
 }
@@ -238,9 +280,10 @@ list<string> findHEIC()
  * Reads SVG files found within the downloads directory
  * @return SVG files
  */
-list<string> findSVG()
+vector<filesystem::path> findSVG()
 {
-    list<string> svgFiles;
+    vector<filesystem::path> svgFiles;
+    int copyCount = 0;
     for (const auto &entry : readDownloadFiles())
     {
         string svgEnd = ".SVG";
@@ -250,11 +293,22 @@ list<string> findSVG()
         if ((svgLower != string::npos && entry.substr(svgLower) == lowerSvgEnd) ||
             (svgUpper != string::npos && entry.substr(svgUpper) == svgEnd))
         {
-            svgFiles.push_back(entry);
+            filesystem::path source = entry;
+            filesystem::path destination = PICTURES_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error copying " << source.filename() << ": " << e.what() << "\n";
+            }
         }
     }
     cout << "Reading..." << "\n";
     sleep(2);
+    cout << copyCount << " files added to the PICTURES directory!! \n";
     cout << svgFiles.size() << " files found ending with .SVG in the folder" << "\n";
     return svgFiles;
 }
@@ -263,9 +317,10 @@ list<string> findSVG()
  * Reads GIF files found within the downloads directory
  * @return GIF files
  */
-list<string> findGIF()
+vector<filesystem::path> findGIF()
 {
-    list<string> gifFiles;
+    vector<filesystem::path> gifFiles;
+    int copyCount = 0;
     for (const auto &entry : readDownloadFiles())
     {
         string gifEnd = ".GIF";
@@ -275,12 +330,22 @@ list<string> findGIF()
         if ((gifLower != string::npos && entry.substr(gifLower) == lowerGifEnd) ||
             (gifUpper != string::npos && entry.substr(gifUpper) == gifEnd))
         {
-            gifFiles.push_back(entry);
+            filesystem::path source = entry;
+            filesystem::path destination = PICTURES_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error copying " << source.filename() << ": " << e.what() << "\n";
+            }
         }
     }
     cout << "Reading..." << "\n";
     sleep(2);
-    cout << gifFiles.size() << " files found ending with .GIF in the folder" << "\n";
+    cout << copyCount << " files added to the PICTURES directory!! \n";
     return gifFiles;
 }
 
@@ -288,9 +353,10 @@ list<string> findGIF()
  * Reads each doc and docx file Downloads directory
  * @return Doc and Docx Files
  */
-list<string> findDoc()
+vector<filesystem::path> findDoc()
 {
-    list<string> docFiles;
+    vector<filesystem::path> docFiles;
+    int copyCount = 0;
     for (const auto &entry : readDownloadFiles())
     {
         string docEnd = ".DOC";
@@ -308,11 +374,22 @@ list<string> findDoc()
             (docxLower != string::npos && entry.substr(docxLower) == docxEndLower))
 
         {
-            docFiles.push_back(entry);
+            filesystem::path source = entry;
+            filesystem::path destination = TEXT_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error copying " << source.filename() << ": " << e.what() << "\n";
+            }
         }
     }
     cout << "Reading..." << "\n";
     sleep(2);
+    cout << copyCount << " files added to the TEXT directory!! \n";
     cout << docFiles.size() << " files ending with .doc and .docx were found in the folder" << "\n";
     return docFiles;
 }
@@ -321,9 +398,10 @@ list<string> findDoc()
  * Reads each PDF file found within the Downloads directory
  * @return PDF files
  */
-list<string> findPDF()
+vector<filesystem::path> findPDF()
 {
-    list<string> pdfFiles;
+    vector<filesystem::path> pdfFiles;
+    int copyCount = 0;
     for (const auto &entry : readDownloadFiles())
     {
         string pdfEnding = ".PDF";
@@ -334,12 +412,22 @@ list<string> findPDF()
         if ((pdfUpper != string::npos && entry.substr(pdfUpper) == pdfEnding) ||
             (pdfLower != string::npos && entry.substr(pdfLower) == pdfEndingLower))
         {
-            pdfFiles.push_back(entry);
+            filesystem::path source = entry;
+            filesystem::path destination = TEXT_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error copying " << source.filename() << ": " << e.what() << "\n";
+            }
         }
     }
-
     cout << "Reading..." << "\n";
     sleep(2);
+    cout << copyCount << " files added to the TEXT directory!! \n";
     cout << pdfFiles.size() << " files found ending with pdf found in the directory" << "\n";
     return pdfFiles;
 }
@@ -348,9 +436,10 @@ list<string> findPDF()
  * Reads each TXT file found within the Downloads directory
  * @return TXT files
  */
-list<string> findTXT()
+vector<filesystem::path> findTXT()
 {
-    list<string> txtFiles;
+    vector<filesystem::path> txtFiles;
+    int copyCount = 0;
     for (const auto &entry : readDownloadFiles())
     {
         string txtEnding = ".TXT";
@@ -361,12 +450,22 @@ list<string> findTXT()
         if ((txtUpper != string::npos && entry.substr(txtUpper) == txtEnding) ||
             (txtLower != string::npos && entry.substr(txtLower) == txtEndingLower))
         {
-            txtFiles.push_back(entry);
+            filesystem::path source = entry;
+            filesystem::path destination = TEXT_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error copying " << source.filename() << ": " << e.what() << "\n";
+            }
         }
     }
-
     cout << "Reading..." << "\n";
     sleep(2);
+    cout << copyCount << " files added to the TEXT directory!! \n";
     cout << txtFiles.size() << " files found ending with txt found in the directory" << "\n";
     return txtFiles;
 }
@@ -375,9 +474,10 @@ list<string> findTXT()
  * Reads each MP4 File found within the Downloads directory
  * @return MP4 Files
  */
-list<string> findMP4()
+vector<filesystem::path> findMP4()
 {
-    list<string> mp4Files;
+    vector<filesystem::path> mp4Files;
+    int copyCount = 0;
     for (const auto &entry : readDownloadFiles())
     {
         string mp4Ending = ".MP4";
@@ -388,11 +488,22 @@ list<string> findMP4()
         if ((mp4Upper != string::npos && entry.substr(mp4Upper) == mp4Ending) ||
             (mp4Lower != string::npos && entry.substr(mp4Lower) == mp4EndingLower))
         {
-            mp4Files.push_back(entry);
+            filesystem::path source = entry;
+            filesystem::path destination = MOV_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error copying " << source.filename() << ": " << e.what() << "\n";
+            }
         }
     }
     cout << "Reading..." << "\n";
     sleep(2);
+    cout << copyCount << " files added to the VIDEO directory!! \n";
     cout << mp4Files.size() << " files found ending with MP4 in the directory." << "\n";
     return mp4Files;
 }
@@ -402,9 +513,10 @@ list<string> findMP4()
  * @return MOV Files
  */
 
-list<string> findMOV()
+vector<filesystem::path> findMOV()
 {
-    list<string> movFiles;
+    vector<filesystem::path> movFiles;
+    int copyCount = 0;
     for (const auto &entry : readDownloadFiles())
     {
         string movEnding = ".MOV";
@@ -412,14 +524,21 @@ list<string> findMOV()
         int movUpper = entry.find(movEnding);
         int movLower = entry.find(movEndingLower);
 
-        if ((movUpper != string::npos && entry.substr(movUpper) == movEnding) ||
-            (movLower != string::npos && entry.substr(movLower) == movEndingLower))
+        filesystem::path source = entry;
+        filesystem::path destination = MOV_DIR / source.filename();
+        try
         {
-            movFiles.push_back(entry);
+            filesystem::rename(source, destination);
+            copyCount++;
+        }
+        catch (const filesystem::filesystem_error &e)
+        {
+            cerr << "Error copying " << source.filename() << ": " << e.what() << "\n";
         }
     }
     cout << "Reading..." << "\n";
     sleep(2);
+    cout << copyCount << " files added to the VIDEO directory!! \n";
     cout << movFiles.size() << " files found ending with MOV in the directory." << "\n";
     return movFiles;
 }
@@ -428,9 +547,10 @@ list<string> findMOV()
  * Reads each MP3 File within the directory
  * @return MP3 Files
  */
-list<string> findMP3()
+vector<filesystem::path> findMP3()
 {
-    list<string> mp3Files;
+    vector<filesystem::path> mp3Files;
+    int copyCount = 0;
     for (const auto &entry : readDownloadFiles())
     {
         string mp3Ending = ".MP3";
@@ -441,12 +561,22 @@ list<string> findMP3()
         if ((mp3Upper != string::npos && entry.substr(mp3Upper) == mp3Ending) ||
             (mp3Lower != string::npos && entry.substr(mp3Lower) == mp3EndingLower))
         {
-            mp3Files.push_back(entry);
+            filesystem::path source = entry;
+            filesystem::path destination = AUD_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error copying " << source.filename() << ": " << e.what() << "\n";
+            }
         }
     }
     cout << "Reading..." << "\n";
     sleep(2);
-    cout << mp3Files.size() << " files found ending with MP3 in the directory." << "\n";
+    cout << copyCount << " files added to the AUDIO directory!! \n";
     return mp3Files;
 }
 
@@ -454,9 +584,10 @@ list<string> findMP3()
  * Reads each WAV file within the directory
  * @return WAV Files
  */
-list<string> findWAV()
+vector<filesystem::path> findWAV()
 {
-    list<string> wavFiles;
+    vector<filesystem::path> wavFiles;
+    int copyCount = 0;
     for (const auto &entry : readDownloadFiles())
     {
         string wavEnding = ".WAV";
@@ -467,12 +598,22 @@ list<string> findWAV()
         if ((wavUpper != string::npos && entry.substr(wavUpper) == wavEnding) ||
             (wavLower != string::npos && entry.substr(wavLower) == wavEndingLower))
         {
-            wavFiles.push_back(entry);
+            filesystem::path source = entry;
+            filesystem::path destination = AUD_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error copying " << source.filename() << ": " << e.what() << "\n";
+            }
         }
     }
     cout << "Reading..." << "\n";
     sleep(2);
-    cout << wavFiles.size() << " files found ending with WAV in the directory." << "\n";
+    cout << copyCount << " files added to the AUDIO directory!! \n";
     return wavFiles;
 }
 

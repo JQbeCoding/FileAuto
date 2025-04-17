@@ -22,6 +22,15 @@ void displayMenu()
 
 int main()
 {
+    const char *homeDir = getenv("HOME");
+    if (!homeDir)
+    {
+        cout << "Could not find home directory.";
+        exit(1);
+    }
+
+    string path = string(homeDir) + "/downloads";
+
     cout << "****Welcome To the File Manipulator****" << "\n";
     cout << "          SELECT FROM CHOICES          " << "\n";
     int choice;
@@ -62,22 +71,92 @@ int main()
                         cout << downloadFiles << " files found in the directory" << "\n";
                         sleep(1);
                         cout << "        PICTURES           " << "\n";
+                        string homeDirStr(homeDir);
+                        filesystem::path downloadsPath = homeDirStr + "/downloads";
+                        filesystem::path picturesPath = downloadsPath / "PICTURES";
+                        try
+                        {
+                            filesystem::create_directory("PICTURES");
+                            if (filesystem::create_directory(picturesPath))
+                            {
+                                cout << picturesPath.string() << " sucessfully created. \n";
+                            }
+                            else
+                            {
+                                cout << "Directory '" << picturesPath.string() << "' already exists or could not be created. \n";
+                            }
+                        }
+                        catch (const std::filesystem::filesystem_error &e)
+                        {
+                            cerr << "Filesystem error occurred: " << e.what() << "\n";
+                        }
+
                         int imageTotal = findJPG().size() + findPNG().size() + findWebp().size() + findHEIC().size() + findSVG().size();
                         cout << imageTotal << " image files found in the folder." << "\n";
                         cout << "\n";
                         cout << "          TEXT             " << "\n";
+                        filesystem::path textPath = downloadsPath / "TEXT";
+                        try
+                        {
+                            filesystem::create_directory("TEXT");
+                            if (filesystem::create_directory(textPath))
+                            {
+                                cout << textPath.string() << " sucessfully created. \n";
+                            }
+                            else
+                            {
+                                cout << "Directory '" << textPath.string() << "' already exists or could not be created. \n";
+                            }
+                        }
+                        catch (const std::filesystem::filesystem_error &e)
+                        {
+                            cerr << "Filesystem error occurred: " << e.what() << "\n";
+                        }
                         int textTotal = findDoc().size() + findPDF().size() + findTXT().size();
                         cout << textTotal << " text files found in the folder." << "\n";
                         cout << "\n";
                         cout << "         VIDEOS            " << "\n";
+                        filesystem::path vidPath = downloadsPath / "VIDEOS";
+                        try
+                        {
+                            filesystem::create_directory("VIDEOS");
+                            if (filesystem::create_directory(picturesPath))
+                            {
+                                cout << vidPath.string() << " sucessfully created. \n";
+                            }
+                            else
+                            {
+                                cout << "Directory '" << vidPath.string() << "' already exists or could not be created. \n";
+                            }
+                        }
+                        catch (const std::filesystem::filesystem_error &e)
+                        {
+                            cerr << "Filesystem error occurred: " << e.what() << "\n";
+                        }
                         int videoTotal = findMP4().size() + findMOV().size();
                         cout << videoTotal << " Video files found in the folder." << "\n";
                         cout << "\n";
                         cout << "         AUDIO            " << "\n";
+                        filesystem::path audPath = downloadsPath / "AUDIO";
+                        try
+                        {
+                            filesystem::create_directory("AUDIO");
+                            if (filesystem::create_directory(picturesPath))
+                            {
+                                cout << audPath.string() << " sucessfully created. \n";
+                            }
+                            else
+                            {
+                                cout << "Directory '" << audPath.string() << "' already exists or could not be created. \n";
+                            }
+                        }
+                        catch (const std::filesystem::filesystem_error &e)
+                        {
+                            cerr << "Filesystem error occurred: " << e.what() << "\n";
+                        }
                         int audioTotal = findMP3().size() + findWAV().size();
                         cout << audioTotal << " Audio files found in the folder." << "\n";
                         cout << "\n";
-
                         cout << "Files have been added to Respective Folders";
                         break;
                     }
