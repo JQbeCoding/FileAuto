@@ -24,10 +24,10 @@ using namespace std;
 #define MYFUNCTIONS_H
 
 const char *homeDir = getenv("HOME");
-inline const filesystem::path PICTURES_DIR = string(homeDir) + "Downloads/PICTURES";
-inline const filesystem::path TEXT_DIR = string(homeDir) + "Downloads/TEXT";
-inline const filesystem::path MOV_DIR = string(homeDir) + "Downloads/VIDEOS";
-inline const filesystem::path AUD_DIR = string(homeDir) + "Downloads/AUDIO";
+inline const filesystem::path PICTURES_DIR = string(homeDir) + "/Downloads/PICTURES";
+inline const filesystem::path TEXT_DIR = string(homeDir) + "/Downloads/TEXT";
+inline const filesystem::path MOV_DIR = string(homeDir) + "/Downloads/VIDEOS";
+inline const filesystem::path AUD_DIR = string(homeDir) + "/Downloads/AUDIO";
 
 /**
  * C++ has a lowercase function that I don't like
