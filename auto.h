@@ -23,6 +23,7 @@ using namespace std;
 #ifndef MYFUNCTIONS_H
 #define MYFUNCTIONS_H
 
+// Obtaining the home directory from the machine
 inline filesystem::path getHomeDir()
 {
     const char *homeDir = getenv("HOME");
