@@ -182,7 +182,7 @@ int main()
     }
 
     case 4:
-        cout << "Ending File...";
+	cout << "Ending File...\n";
         exit(0);
         break;
     default:
