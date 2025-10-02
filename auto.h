@@ -39,6 +39,9 @@ inline const filesystem::path PICTURES_DIR = getHomeDir() / "Downloads/PICTURES"
 inline const filesystem::path TEXT_DIR = getHomeDir() / "Downloads/TEXT";
 inline const filesystem::path MOV_DIR = getHomeDir() / "Downloads/VIDEOS";
 inline const filesystem::path AUD_DIR = getHomeDir() / "Downloads/AUDIO";
+inline const filesystem::path CODE_DIR = getHomeDir() / "Downloads/CODE";
+inline const filesystem::path DATA_DIR = getHomeDir() / "Downloads/DATA";
+inline const filesystem::path MISC_DIR = getHomeDir() / "Downloads/MISC";
 
 /**
  * C++ has a lowercase function that I don't like
@@ -719,5 +722,372 @@ vector<filesystem::path> findWAV()
     cout << copyCount << " files ending with WAV in the directory\n";
     cout << copyCount << " files added to the AUDIO directory!! \n";
     return wavFiles;
+}
+
+vector<filesystem::path> findFLAC()
+{
+    vector<filesystem::path> flacFiles;
+    int copyCount = 0;
+    for (const auto &entry : readDownloadFiles())
+    {
+        string flacEnding = ".FLAC";
+        string flacEndingLower = toLowerCase(flacEnding);
+        int flacUpper = entry.find(flacEnding);
+        int flacLower = entry.find(flacEndingLower);
+
+        if ((flacUpper != string::npos && entry.substr(flacUpper) == flacEnding) ||
+            (flacLower != string::npos && entry.substr(flacLower) == flacEndingLower))
+        {
+            filesystem::path source = entry;
+            filesystem::path destination = AUD_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error copying " << source.filename() << ": " << e.what() << "\n";
+            }
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(2);
+    cout << copyCount << " files ending with WAV in the directory\n";
+    cout << copyCount << " files added to the AUDIO directory!! \n";
+    return flacFiles;
+}
+
+vector<filesystem::path> findCPP()
+{
+    vector<filesystem::path> cppFiles;
+    int copyCount = 0;
+    for (const auto &entry : readDownloadFiles())
+    {
+        filesystem::path source(entry);
+        string ext = toLowerCase(source.extension().string());
+        if (ext == ".cpp" || ext == ".cc" || ext == ".cxx" || ext == ".c" || ext == ".h" || ext == ".hpp")
+        {
+            filesystem::path destination = CODE_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                cppFiles.push_back(destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error moving " << source.filename() << ": " << e.what() << "\n";
+            }
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(1);
+    cout << copyCount << " C/C++ files moved to the CODE directory.\n";
+    return cppFiles;
+}
+
+vector<filesystem::path> findJava()
+{
+    vector<filesystem::path> javaFiles;
+    int copyCount = 0;
+    for (const auto &entry : readDownloadFiles())
+    {
+        filesystem::path source(entry);
+        string ext = toLowerCase(source.extension().string());
+        if (ext == ".java")
+        {
+            filesystem::path destination = CODE_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                javaFiles.push_back(destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error moving " << source.filename() << ": " << e.what() << "\n";
+            }
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(1);
+    cout << copyCount << " Java files moved to the CODE directory.\n";
+    return javaFiles;
+}
+
+vector<filesystem::path> findPython()
+{
+    vector<filesystem::path> pyFiles;
+    int copyCount = 0;
+    for (const auto &entry : readDownloadFiles())
+    {
+        filesystem::path source(entry);
+        string ext = toLowerCase(source.extension().string());
+        if (ext == ".py")
+        {
+            filesystem::path destination = CODE_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                pyFiles.push_back(destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error moving " << source.filename() << ": " << e.what() << "\n";
+            }
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(1);
+    cout << copyCount << " Python files moved to the CODE directory.\n";
+    return pyFiles;
+}
+
+vector<filesystem::path> findJS()
+{
+    vector<filesystem::path> jsFiles;
+    int copyCount = 0;
+    for (const auto &entry : readDownloadFiles())
+    {
+        filesystem::path source(entry);
+        string ext = toLowerCase(source.extension().string());
+        if (ext == ".js" || ext == ".mjs")
+        {
+            filesystem::path destination = CODE_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                jsFiles.push_back(destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error moving " << source.filename() << ": " << e.what() << "\n";
+            }
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(1);
+    cout << copyCount << " JavaScript files moved to the CODE directory.\n";
+    return jsFiles;
+}
+
+vector<filesystem::path> findTS()
+{
+    vector<filesystem::path> tsFiles;
+    int copyCount = 0;
+    for (const auto &entry : readDownloadFiles())
+    {
+        filesystem::path source(entry);
+        string ext = toLowerCase(source.extension().string());
+        if (ext == ".ts")
+        {
+            filesystem::path destination = CODE_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                tsFiles.push_back(destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error moving " << source.filename() << ": " << e.what() << "\n";
+            }
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(1);
+    cout << copyCount << " TypeScript files moved to the CODE directory.\n";
+    return tsFiles;
+}
+
+vector<filesystem::path> findCS()
+{
+    vector<filesystem::path> csFiles;
+    int copyCount = 0;
+    for (const auto &entry : readDownloadFiles())
+    {
+        filesystem::path source(entry);
+        string ext = toLowerCase(source.extension().string());
+        if (ext == ".cs")
+        {
+            filesystem::path destination = CODE_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                csFiles.push_back(destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error moving " << source.filename() << ": " << e.what() << "\n";
+            }
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(1);
+    cout << copyCount << " C# files moved to the CODE directory.\n";
+    return csFiles;
+}
+
+vector<filesystem::path> findWebSources()
+{
+    vector<filesystem::path> webFiles;
+    int copyCount = 0;
+    for (const auto &entry : readDownloadFiles())
+    {
+        filesystem::path source(entry);
+        string ext = toLowerCase(source.extension().string());
+        if (ext == ".html" || ext == ".htm" || ext == ".css")
+        {
+            filesystem::path destination = CODE_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                webFiles.push_back(destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error moving " << source.filename() << ": " << e.what() << "\n";
+            }
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(1);
+    cout << copyCount << " web source files moved to the CODE directory.\n";
+    return webFiles;
+}
+
+vector<filesystem::path> findCSV()
+{
+    vector<filesystem::path> csvFiles;
+    int copyCount = 0;
+    for (const auto &entry : readDownloadFiles())
+    {
+        filesystem::path source(entry);
+        string ext = toLowerCase(source.extension().string());
+        if (ext == ".csv")
+        {
+            filesystem::path destination = DATA_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                csvFiles.push_back(destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error moving " << source.filename() << ": " << e.what() << "\n";
+            }
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(1);
+    cout << copyCount << " CSV files moved to the DATA directory.\n";
+    return csvFiles;
+}
+
+vector<filesystem::path> findSQL()
+{
+    vector<filesystem::path> sqlFiles;
+    int copyCount = 0;
+    for (const auto &entry : readDownloadFiles())
+    {
+        filesystem::path source(entry);
+        string ext = toLowerCase(source.extension().string());
+        if (ext == ".sql")
+        {
+            filesystem::path destination = DATA_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                sqlFiles.push_back(destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error moving " << source.filename() << ": " << e.what() << "\n";
+            }
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(1);
+    cout << copyCount << " SQL files moved to the DATA directory.\n";
+    return sqlFiles;
+}
+
+vector<filesystem::path> findExcel()
+{
+    vector<filesystem::path> excelFiles;
+    int copyCount = 0;
+    for (const auto &entry : readDownloadFiles())
+    {
+        filesystem::path source(entry);
+        string ext = toLowerCase(source.extension().string());
+        // common Excel extensions
+        if (ext == ".xls" || ext == ".xlsx" || ext == ".xlsm" || ext == ".xlsb" || ext == ".xml" && toLowerCase(source.filename().extension().string()) == ".xml")
+        {
+            filesystem::path destination = DATA_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                excelFiles.push_back(destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error moving " << source.filename() << ": " << e.what() << "\n";
+            }
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(1);
+    cout << copyCount << " Excel files moved to the DATA directory.\n";
+    return excelFiles;
+}
+
+vector<filesystem::path> findMisc()
+{
+    vector<filesystem::path> miscFiles;
+    int copyCount = 0;
+    // misc extensions not covered by other categories
+    const vector<string> miscExts = {
+        ".zip", ".rar", ".7z", ".tar", ".gz", ".bz2", ".iso", ".dmg", ".exe", ".apk",
+        ".log", ".md", ".json", ".yaml", ".yml", ".ini", ".cfg", ".ps1", ".bat", ".ttf", ".otf", ".pem", ".ics", ".eml"};
+    for (const auto &entry : readDownloadFiles())
+    {
+        filesystem::path source(entry);
+        string ext = toLowerCase(source.extension().string());
+        bool match = false;
+        for (const auto &m : miscExts)
+        {
+            if (ext == m)
+            {
+                match = true;
+                break;
+            }
+        }
+        if (match)
+        {
+            filesystem::path destination = MISC_DIR / source.filename();
+            try
+            {
+                filesystem::rename(source, destination);
+                miscFiles.push_back(destination);
+                copyCount++;
+            }
+            catch (const filesystem::filesystem_error &e)
+            {
+                cerr << "Error moving " << source.filename() << ": " << e.what() << "\n";
+            }
+        }
+    }
+    cout << "Reading..." << "\n";
+    sleep(1);
+    cout << copyCount << " Misc files moved to the MISC directory.\n";
+    return miscFiles;
 }
 #endif

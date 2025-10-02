@@ -93,6 +93,7 @@ int main()
                         int imageTotal = findJPG().size() + findPNG().size() + findWebp().size() + findHEIC().size() + findSVG().size() + findGIF().size() + findICO().size();
                         cout << imageTotal << " image files found in the folder." << "\n";
                         cout << "\n";
+                        // Text Files
                         cout << "          TEXT             " << "\n";
                         filesystem::path textPath = downloadsPath / "TEXT";
                         try
@@ -113,6 +114,8 @@ int main()
                         int textTotal = findDoc().size() + findPDF().size() + findTXT().size() + findPPTX().size();
                         cout << textTotal << " text files found in the folder." << "\n";
                         cout << "\n";
+
+                        // Video Directory
                         cout << "         VIDEOS            " << "\n";
                         filesystem::path vidPath = downloadsPath / "VIDEOS";
                         try
@@ -133,6 +136,7 @@ int main()
                         int videoTotal = findMP4().size() + findMOV().size();
                         cout << videoTotal << " Video files found in the folder." << "\n";
                         cout << "\n";
+                        // Audio Directory
                         cout << "         AUDIO            " << "\n";
                         filesystem::path audPath = downloadsPath / "AUDIO";
                         try
@@ -150,9 +154,76 @@ int main()
                         {
                             cerr << "Filesystem error occurred: " << e.what() << "\n";
                         }
-                        int audioTotal = findMP3().size() + findWAV().size();
+                        int audioTotal = findMP3().size() + findWAV().size() + findFLAC().size();
                         cout << audioTotal << " Audio files found in the folder." << "\n";
                         cout << "\n";
+
+                        // CODE directory and code file handling
+                        cout << "         CODE              " << "\n";
+                        filesystem::path codePath = downloadsPath / "CODE";
+                        try
+                        {
+                            if (filesystem::create_directory(codePath))
+                            {
+                                cout << codePath.string() << " sucessfully created. \n";
+                            }
+                            else
+                            {
+                                cout << "Directory '" << codePath.string() << "' already exists or could not be created. \n";
+                            }
+                        }
+                        catch (const std::filesystem::filesystem_error &e)
+                        {
+                            cerr << "Filesystem error occurred: " << e.what() << "\n";
+                        }
+                        int codeTotal = findCPP().size() + findJava().size() + findPython().size() + findJS().size() + findTS().size() + findCS().size() + findWebSources().size();
+                        cout << codeTotal << " code files found in the folder." << "\n";
+                        cout << "\n";
+
+                        // DATA directory (CSV / SQL / Excel)
+                        cout << "         DATA              " << "\n";
+                        filesystem::path dataPath = downloadsPath / "DATA";
+                        try
+                        {
+                            if (filesystem::create_directory(dataPath))
+                            {
+                                cout << dataPath.string() << " sucessfully created. \n";
+                            }
+                            else
+                            {
+                                cout << "Directory '" << dataPath.string() << "' already exists or could not be created. \n";
+                            }
+                        }
+                        catch (const std::filesystem::filesystem_error &e)
+                        {
+                            cerr << "Filesystem error occurred: " << e.what() << "\n";
+                        }
+                        int dataTotal = findCSV().size() + findSQL().size() + findExcel().size();
+                        cout << dataTotal << " data files found in the folder." << "\n";
+                        cout << "\n";
+
+                        // MISC directory (other file types)
+                        cout << "         MISC              " << "\n";
+                        filesystem::path miscPath = downloadsPath / "MISC";
+                        try
+                        {
+                            if (filesystem::create_directory(miscPath))
+                            {
+                                cout << miscPath.string() << " sucessfully created. \n";
+                            }
+                            else
+                            {
+                                cout << "Directory '" << miscPath.string() << "' already exists or could not be created. \n";
+                            }
+                        }
+                        catch (const std::filesystem::filesystem_error &e)
+                        {
+                            cerr << "Filesystem error occurred: " << e.what() << "\n";
+                        }
+                        int miscTotal = findMisc().size();
+                        cout << miscTotal << " misc files found in the folder." << "\n";
+                        cout << "\n";
+
                         cout << "Files have been added to Respective Folders \n";
                         break;
                     }
@@ -181,9 +252,14 @@ int main()
         }
     }
 
-
+    case 2:
+        cout << "Application still in development. \n";
+        break;
+    case 3:
+        cout << "Application still in development. \n";
+        break;
     case 4:
-	cout << "Ending File...\n";
+        cout << "Ending Application...\n";
         exit(0);
         break;
     default:
